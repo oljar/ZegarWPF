@@ -11,6 +11,9 @@ namespace ZegarWPF.ModelWidoku
     {
 
         private readonly bool isInDesignMode = System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject());
+
+        private DateTime poprzedniCzas = DateTime.Now;
+
         public DateTime AktualnyCzas
         {
             get
@@ -23,7 +26,18 @@ namespace ZegarWPF.ModelWidoku
         public Zegar()
         {
             DispatcherTimer timerOdświeżeniaWidoku = new DispatcherTimer();
-            timerOdświeżeniaWidoku.Tick += (sender, e) => onPropertyChanged(nameof(AktualnyCzas));
+            timerOdświeżeniaWidoku.Tick += 
+                (sender, e) =>
+                {
+                    if (AktualnyCzas.Second != poprzedniCzas.Second)
+                    {
+
+
+                        poprzedniCzas = AktualnyCzas;
+
+                        onPropertyChanged(nameof(AktualnyCzas));
+                    }
+                };
             timerOdświeżeniaWidoku.Interval = TimeSpan.FromMilliseconds(okresOdświerzaniaWidoku);
             //timerOdświeżeniaWidoku.Start();
             if (!isInDesignMode)

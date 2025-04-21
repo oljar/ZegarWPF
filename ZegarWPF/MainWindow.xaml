@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:ZegarWPF"
       
         xmlns:mw="clr-namespace:ZegarWPF.ModelWidoku"
+        
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
+        
+        Background="Transparent"
+        Opacity="0.75" AllowsTransparency="True" WindowStyle="None"
+        
         Title="Zegar" Height="550" Width="550" ResizeMode="NoResize">
 
     <Window.DataContext>
@@ -29,76 +35,80 @@
         <local:KonwerteryKątaWskazówki Wskazówka="Minutowa" x:Key="wskazówkaMinutowa"/>
         <local:KonwerteryKątaWskazówki Wskazówka="Sekundowa" x:Key="wskazówkaSekundowa"/>
     </Window.Resources>
-    <StackPanel Orientation="Vertical">
-        <TextBlock FontSize =" 30" 
-                   Text="{Binding Path=AktualnyCzas,Mode=OneWay, StringFormat={}{0:dd MMMM yyyy},ConverterCulture=pl-PL}"/>
+    <i:Interaction.Behaviors>
+        <local:PrzesuwanieOkna/>
 
-        <TextBlock FontSize =" 40" 
-                   Text="{Binding Path=AktualnyCzas,Mode=OneWay, StringFormat={}{0:HH:mm:ss},ConverterCulture=pl-PL}"/>
+    </i:Interaction.Behaviors>
 
 
-
-
-        <Canvas>
-            <Ellipse Canvas.Left="50" Canvas.Top="15"
+    <Canvas>
+        <Ellipse Canvas.Left="50" Canvas.Top="15"
             Height = "400" Width="400" 
             StrokeThickness="2" Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Top">
 
-                <Ellipse.Fill>
+            <Ellipse.Fill>
 
-                    <RadialGradientBrush GradientOrigin="0.5,0.5">
-                        <GradientStop Offset="1" Color="#DDDDDD"/>
-                        <GradientStop Offset="0.75" Color="#EEEEEE"/>
-                        <GradientStop Offset="0" Color="#FFFFFF"/>
-                    </RadialGradientBrush>
+                <RadialGradientBrush GradientOrigin="0.5,0.5">
+                    <GradientStop Offset="1" Color="#DDDDDD"/>
+                    <GradientStop Offset="0.75" Color="#EEEEEE"/>
+                    <GradientStop Offset="0" Color="#FFFFFF"/>
+                </RadialGradientBrush>
 
 
-                </Ellipse.Fill>
-            </Ellipse>
+            </Ellipse.Fill>
+        </Ellipse>
 
-            <TextBlock Text="12" FontSize="75" Foreground="DarkGray"
+
+        <TextBlock FontSize =" 30" Canvas.Left="175" Canvas.Top="245" Foreground="#888888"
+            Text="{Binding Path=AktualnyCzas,Mode=OneWay, StringFormat={}{0:dd MMMM yyyy},ConverterCulture=pl-PL}"/>
+
+        <TextBlock FontSize =" 40"  Canvas.Left="180" Canvas.Top="285" Foreground="#888888"
+            Text="{Binding Path=AktualnyCzas,Mode=OneWay, StringFormat={}{0:HH:mm:ss},ConverterCulture=pl-PL}"/>
+
+
+        <TextBlock Text="12" FontSize="75" Foreground="DarkGray"
                        Canvas.Left="210" Canvas.Top="10" />
 
-            <TextBlock Text="3" FontSize="75" Foreground="DarkGray"
+        <TextBlock Text="3" FontSize="75" Foreground="DarkGray"
               Canvas.Left="390" Canvas.Top="165" />
 
-            <TextBlock Text="6" FontSize="75" Foreground="DarkGray"
+        <TextBlock Text="6" FontSize="75" Foreground="DarkGray"
               Canvas.Left="230" Canvas.Top="325" />
 
-            <TextBlock Text="9" FontSize="75" Foreground="DarkGray"
+        <TextBlock Text="9" FontSize="75" Foreground="DarkGray"
               Canvas.Left="70" Canvas.Top="165" />
 
-            <Line Canvas.Left="250" Canvas.Top="210"
+        <Line Canvas.Left="250" Canvas.Top="210"
                   StrokeThickness="4" 
                   X1="0" Y1="0"
                   X2="0" Y2="-75">
 
-                <Line.RenderTransform>
-                    <RotateTransform Angle="{Binding Path=AktualnyCzas, Mode =OneWay,Converter={StaticResource wskazówkaGodzinowa}}"/>
-                </Line.RenderTransform>
-            </Line>
+            <Line.RenderTransform>
+                <RotateTransform Angle="{Binding Path=AktualnyCzas, Mode =OneWay,Converter={StaticResource wskazówkaGodzinowa}}"/>
+            </Line.RenderTransform>
+        </Line>
 
-            <Line Canvas.Left="250" Canvas.Top="210"
+        <Line Canvas.Left="250" Canvas.Top="210"
                   StrokeThickness="2" 
                   X1="0" Y1="0"
                   X2="0" Y2="-150">
 
-                <Line.RenderTransform>
-                    <RotateTransform Angle="{Binding Path=AktualnyCzas, Mode =OneWay,Converter={StaticResource wskazówkaMinutowa}}"/>
-                </Line.RenderTransform>
-            </Line>
-            <Line Canvas.Left="250" Canvas.Top="210"
+            <Line.RenderTransform>
+                <RotateTransform Angle="{Binding Path=AktualnyCzas, Mode =OneWay,Converter={StaticResource wskazówkaMinutowa}}"/>
+            </Line.RenderTransform>
+        </Line>
+        <Line Canvas.Left="250" Canvas.Top="210"
                   StrokeThickness="1" 
                   X1="0" Y1="0"
                   X2="0" Y2="-150">
 
-                <Line.RenderTransform>
-                    <RotateTransform Angle="{Binding Path=AktualnyCzas, Mode =OneWay,Converter={StaticResource wskazówkaSekundowa}}"/>
-                </Line.RenderTransform>
-            </Line>
-         
+            <Line.RenderTransform>
+                <RotateTransform Angle="{Binding Path=AktualnyCzas, Mode =OneWay,Converter={StaticResource wskazówkaSekundowa}}"/>
+            </Line.RenderTransform>
+        </Line>
 
-        </Canvas>
-    </StackPanel>
+
+    </Canvas>
+
 
 </Window>
